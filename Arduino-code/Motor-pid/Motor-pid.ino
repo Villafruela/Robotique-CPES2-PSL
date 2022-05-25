@@ -1,7 +1,16 @@
-#define ENCMOTORAA 3 //Blanc
-#define ENCMOTORAB 4 //Jaune
+// Encodeur Moteur A
+#define ENCMOTEURAA 3 //Blanc
+#define ENCMOTEURAB 4 //Jaune
+// Encodeur Moteur B
+#define ENCMOTEURBA 7
+#define ENCMOTEURBB 8
+// Controle du moteur A
 #define INAA 6
 #define INAB 5
+// Controle du moteur B
+#define INBA 9
+#define INBB 10
+
 #define SPEED 50 // Entre 50 et 
 
 int posMUN = 0;
@@ -14,15 +23,15 @@ float eintegral = 0;
 
 void setup() {
   Serial.begin(9600);
-  pinMode (ENCMOTORAA,INPUT);
-  pinMode (ENCMOTORAB,INPUT);
+  pinMode (ENCMOTEURAA,INPUT);
+  pinMode (ENCMOTEURAB,INPUT);
   pinMode (INAA,OUTPUT);
   pinMode (INAB,OUTPUT);
-  attachInterrupt(digitalPinToInterrupt(ENCMOTORAA), readEncoder, RISING);
+  attachInterrupt(digitalPinToInterrupt(ENCMOTEURAA), readEncoder, RISING);
 }
 
 void readEncoder(){
-  int b = digitalRead(ENCMOTORAB);
+  int b = digitalRead(ENCMOTEURAB);
   if (b>0) {
     posMUN ++;
   } else {
