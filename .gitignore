@@ -402,3 +402,4 @@ FodyWeavers.xsd
 
 # Apple icloud backup
 .icloud
+*.icloud
