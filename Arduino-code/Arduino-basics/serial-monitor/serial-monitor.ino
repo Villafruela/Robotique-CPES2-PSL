@@ -8,16 +8,13 @@ void loop() {
   if(Serial.available()) // si on reçoit des données
   {
     String command = Serial.readStringUntil('\n'); // on lit la chaine de caractère jusqu'au retour chariot
-
-    switch (command) {
-      case "O":
-        digitalWrite(LED_BUILTIN, HIGH); // on allume la led
-        Serial.println("LED is turned ON"); // on log l'action sur le moniteur Série
-        break;
-      case "F":
-        digitalWrite(LED_BUILTIN, LOW);  // on éteint la led
-        Serial.println("LED is turned OFF"); // on log l'action sur le moniteur Série
-        break;
+    
+    if (command == "ON") {
+         digitalWrite(LED_BUILTIN, HIGH); // on allume la led
+         Serial.println("LED is turned ON"); // on log l'action sur le moniteur Série
+    } else if (command == "OFF") {
+         digitalWrite(LED_BUILTIN, LOW);  // on éteint la led
+         Serial.println("LED is turned OFF"); // on log l'action sur le moniteur Série
     }
   }
 }

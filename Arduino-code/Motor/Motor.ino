@@ -1,36 +1,27 @@
-#define ENCMOTORAA 3 //Blanc
-#define ENCMOTORAB 4 //Jaune
+// Définitiion des pin de connexion
+#define ENCMOTORAA 2 //Blanc
+#define ENCMOTORAB 3 //Jaune
 #define INAA 6
-#define INAB 5
-#define SPEED 50 // Entre 50 et 255
+#define INAB 7
+const byte PWM = A5;
 
-// Position Moteur 1
-int posMUN = 0;
-// Encodeur A du Moteur A
-int MAA = 0;
-// Encodeur B du Moteur A
-int MAB = 0;
-
+// Initialisation
 void setup() {
   Serial.begin(9600);
   pinMode (ENCMOTORAA,INPUT);
   pinMode (ENCMOTORAB,INPUT);
   pinMode (INAA,OUTPUT);
   pinMode (INAB,OUTPUT);
-  attachInterrupt(digitalPinToInterrupt(ENCMOTORAA), readEncoder, RISING);
 }
 
-void readEncoder(){
-  int b = digitalRead(ENCMOTORAB);
-  if (b>0) {
-    posMUN ++;
-  } else {
-    posMUN --;
-  }
-}
-
-// Utilisation du moteur en digital (vitesse par défaut)
-void setMotorD(int dir, int IN1, int IN2) {
+// Utilisation du moteur en analogique
+// dir : direction : -1 ou 1
+// pwmVal : intensité envoyé au moteur (0-11.1V) sur 0-255
+// pwm : pin de contrôle du moteur
+// IN1 : encodeur A
+// IN2 : encodeur B
+void setMotor (int dir, int pwmVal, int pwm, int IN1, int IN2) {
+  analogWrite(pwm, pwmVal);
   //On règle la vitesse pour les 2 moteurs
   if (dir==1){
     digitalWrite(IN1, HIGH);
@@ -44,39 +35,8 @@ void setMotorD(int dir, int IN1, int IN2) {
   }
 }
 
-// Utilisation du moteur en digital (vitesse par défaut)
-void setMotor(int dir, int Speed, int IN1, int IN2) {
-  //On règle la vitesse pour les 2 moteurs
-  if (dir==1){
-    analogWrite(IN1, Speed);
-    analogWrite(IN2, 0);
-  }else if (dir==-1){
-    analogWrite(IN1, 0);
-    analogWrite(IN2, Speed);
-  } else{
-    analogWrite(IN2, 0);
-    analogWrite(IN2, 0);
-  }
-}
-
 void loop() {
-  setMotorD(1, INAA, INAB);
-  delay (3000);
-  //setMotor(1, 100, INAA, INAB);
-  //delay (3000);
-  //setMotor(-1, 100, INAA, INAB);
-  //delay (3000);
-  //setMotor(1, 200, INAA, INAB);
-  //delay (3000);
-  //setMotor(-1, 200, INAA, INAB);
-  //delay (3000);
-  //setMotor(0,0,INAA, INAB);
-  MAA = digitalRead(ENCMOTORAA);
-  MAB = digitalRead(ENCMOTORAB);
-  Serial.print("MAA : ");
-  Serial.println(MAA);
-  Serial.print("MAB : ");
-  Serial.println(MAB);
-  Serial.print("Pos Moteur 1 : ");
-  Serial.println(posMUN);
+  int pwr = 100; // entre 0 et 255
+  int dir = 1; // 1 ou -1
+  setMotor (dir, pwr, PWM, INAA, INAB);
 }
