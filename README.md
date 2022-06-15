@@ -1,5 +1,5 @@
 # Robotique-CPES2-PSL
- Fichier du cours de robotique CPES2 de PSL
+ Fichiers du cours de robotique CPES2 de PSL
  
 ## Architecture des répertoires
 * **Arduino-code**: contient les différents codes pour le cours.
