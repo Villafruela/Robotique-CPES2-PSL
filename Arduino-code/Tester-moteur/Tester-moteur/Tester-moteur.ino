@@ -29,7 +29,7 @@ void setup() {
   pinMode(moteurB_2, OUTPUT);
   attachInterrupt(digitalPinToInterrupt(encodeurAA), readEncoderA, RISING);// Triger sur les fronts montants de capteur A
   attachInterrupt(digitalPinToInterrupt(encodeurAB), readEncoderB, RISING);// Triger les fronts montants de capteur B
-  delay(2000);
+  delay(5000);
 }
 
 // Récupération de la position de l'encodeur A
@@ -82,7 +82,7 @@ void loop() {
   if (encPosA==0){
     Serial.print("//Vitesse d'echantillonage ms : ");
     Serial.println(vitEchantillonage);
-    Serial.println("Tension (0-255) de 6V;Pos Encodeur A ;Pos encodeur B");
+    Serial.println("Tension (0-255) de 12V;Pos Encodeur A ;Pos encodeur B");
   }
   if (encPos <=20000){
     vitesse = 50;

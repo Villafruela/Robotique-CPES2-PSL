@@ -2,14 +2,14 @@
 #define ENCMOTEURAA 3 //Blanc
 #define ENCMOTEURAB 4 //Jaune
 // Encodeur Moteur B
-#define ENCMOTEURBA 7
-#define ENCMOTEURBB 8
+#define ENCMOTEURBA 10
+#define ENCMOTEURBB 9
 // Controle du moteur A
 #define INAA 6
 #define INAB 5
 // Controle du moteur B
-#define INBA 9
-#define INBB 10
+#define INBA 7
+#define INBB 8
 
 #define SPEED 50 // Entre 50 et 255
 
@@ -20,13 +20,14 @@ long prevT = 0;
 float eprev = 0;
 float eintegral = 0;
 
-
 void setup() {
   Serial.begin(9600);
   pinMode (ENCMOTEURAA,INPUT);
   pinMode (ENCMOTEURAB,INPUT);
   pinMode (INAA,OUTPUT);
   pinMode (INAB,OUTPUT);
+  pinMode (INBA,OUTPUT);
+  pinMode (INBB,OUTPUT);
   attachInterrupt(digitalPinToInterrupt(ENCMOTEURAA), readEncoder, RISING);
 }
 
@@ -55,7 +56,7 @@ void setMotor(int dir, int Speed, int IN1, int IN2) {
 
 void loop() {
   // On définit la consigne 64 impulsions 
-  int consigne = 128;
+  int consigne = 256;
 
   //les constantes du PID
   float Kp = 3;
@@ -93,8 +94,9 @@ void loop() {
     dir = 1;
   }
 
-  // On actionne le moteur:
-  setMotor(dir, power, INAA, INAB);
+  // On actionne les moteurs :
+  setMotor(-dir, power, INAA, INAB);
+  setMotor(dir,power, INBA, INBB);
   
   
   // on enregistre l'érreur précédente

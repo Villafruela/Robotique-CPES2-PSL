@@ -36,7 +36,7 @@ void setMotor (int dir, int pwmVal, int pwm, int IN1, int IN2) {
 }
 
 void loop() {
-  int pwr = 100; // entre 0 et 255
+  int pwr = 150; // entre 0 et 255
   int dir = 1; // 1 ou -1
   setMotor (dir, pwr, PWM, INAA, INAB);
 }
