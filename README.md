@@ -12,4 +12,4 @@
  ainsi que le DXF de la plateforme (également à faire réaliser par les élèves) 
  et les schémas électriques des différents montages.
 * **Documentation** : contient la documentation du projet pour la construction.
-* Images : contient des photos du robot.
+* **Images** : contient des photos du robot.
